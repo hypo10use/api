@@ -1,0 +1,15 @@
+openapi: 3.0.2
+info:
+  description: ""
+  version: "1.0.0"
+  title: "Hypo10use Roulette"
+paths:
+  /helloworld:
+    get:
+      summary: "Hello World Path"
+      description: "Hello World Path"
+      responses:
+        "200":
+          description: "Ok"
+externalDocs:
+  url: "https://github.com/hypo10use"
