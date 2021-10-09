@@ -1,0 +1,64 @@
+openapi: 3.0.2
+info:
+  description: ""
+  version: "1.0.0"
+  title: "Hypo10use Morra"
+paths:
+  /status:
+    get:
+      summary: "Current game status"
+      description: "Returns all current parameters of the game."
+      responses:
+        "200":
+          description: "Ok"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Status"
+
+  /ws:
+    get:
+      summary: "Endpoint for websocket connection"
+      description: "Endpoint to establish a new websocket connection."
+      parameters:
+      - $ref: "#/components/parameters/address"
+      responses:
+        "200":
+          description: "Ok"
+
+components:
+  schemas:
+    Status:
+      type: "object"
+      properties:
+        state:
+          type: "string"
+          emum: ["LOBBY", "GUESS", "RESULT"]
+        participants:
+          type: "integer"
+        waitingList:
+          type: "integer"
+        timerLobbyStarted:
+          type: "boolean"
+        lobbyTimeRemaining:
+          type: "integer"
+        timerGuessStarted:
+          type: "boolean"
+        guessTimeRemaining:
+          type: "integer"
+        timerResultStarted:
+          type: "boolean"
+        resultTimeRemaining:
+          type: "integer"
+
+  parameters:
+    address:
+      name: "address"
+      in: "query"
+      description: "Address of participant"
+      required: true
+      schema:
+        type: "string"
+
+externalDocs:
+  url: "https://github.com/hypo10use"
