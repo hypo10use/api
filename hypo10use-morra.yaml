@@ -34,10 +34,18 @@ components:
         state:
           type: "string"
           emum: ["LOBBY", "GUESS", "RESULT"]
+        participantsCount:
+          type: "integer"
         participants:
+          type: "array"
+          items:
+            type: "string"
+        waitingListCount:
           type: "integer"
         waitingList:
-          type: "integer"
+          type: "array"
+          items:
+            type: "string"
         timerLobbyStarted:
           type: "boolean"
         lobbyTimeRemaining:
@@ -50,6 +58,19 @@ components:
           type: "boolean"
         resultTimeRemaining:
           type: "integer"
+        me:
+          type: "object"
+          properties:
+            name: 
+              type: "string"
+            address:
+              type: "string"
+            bet:
+              type: "integer"
+            guess:
+              type: "integer"
+            waitingList:
+              type: "boolean"
 
   parameters:
     address:
