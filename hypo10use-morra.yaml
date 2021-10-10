@@ -16,12 +16,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Status"
 
+  /status/{address}:
+    get:
+      summary: "Current game status including information about current address"
+      description: "Current game status including information about current address."
+      parameters:
+      - $ref: "#/components/parameters/address"
+      responses:
+        "200":
+          description: "Ok"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PersonalStatus"
+
   /ws:
     get:
       summary: "Endpoint for websocket connection"
       description: "Endpoint to establish a new websocket connection."
       parameters:
-      - $ref: "#/components/parameters/address"
+      - $ref: "#/components/parameters/addressQ"
+      - $ref: "#/components/parameters/nameQ"
       responses:
         "200":
           description: "Ok"
@@ -33,7 +48,38 @@ components:
       properties:
         state:
           type: "string"
-          emum: ["LOBBY", "GUESS", "RESULT"]
+          enum: ["LOBBY", "GUESS", "RESULT"]
+        participantsCount:
+          type: "integer"
+        participants:
+          type: "array"
+          items:
+            type: "string"
+        waitingListCount:
+          type: "integer"
+        waitingList:
+          type: "array"
+          items:
+            type: "string"
+        timerLobbyStarted:
+          type: "boolean"
+        lobbyTimeRemaining:
+          type: "integer"
+        timerGuessStarted:
+          type: "boolean"
+        guessTimeRemaining:
+          type: "integer"
+        timerResultStarted:
+          type: "boolean"
+        resultTimeRemaining:
+          type: "integer"
+
+    PersonalStatus:
+      type: "object"
+      properties:
+        state:
+          type: "string"
+          enum: ["LOBBY", "GUESS", "RESULT"]
         participantsCount:
           type: "integer"
         participants:
@@ -75,8 +121,22 @@ components:
   parameters:
     address:
       name: "address"
+      in: "path"
+      description: "Address of participant"
+      required: true
+      schema:
+        type: "string"
+    addressQ:
+      name: "address"
       in: "query"
       description: "Address of participant"
+      required: true
+      schema:
+        type: "string"
+    nameQ:
+      name: "name"
+      in: "query"
+      description: "Name of participant"
       required: true
       schema:
         type: "string"
